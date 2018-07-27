@@ -1,2 +1,2 @@
 # Sentiment-Analysis
-Performed sentiment analysis on IMDB movie reviews
+Performed sentiment analysis on movie reviews using Machine Learning
