@@ -25,7 +25,7 @@ def cleanData( raw_data ):#
     return (" ".join( stemWords ))
 
 cleanTrain=[]
-print "Cleaning Reviews..................................\n"
+print "Cleaning\n"
 for i in xrange(0,len(trainData["review"])):
     cleanTrain.append(cleanData(trainData["review"][i]))
 
@@ -34,7 +34,7 @@ for i in xrange(0,len(trainData["review"])):
 # output.to_csv("cleanTrain.csv",index=False,quoting=3)
 # print cleanTrain
 
-print "Creating Bag of Words..................................\n"
+print "Vectorizing\n"
 vectorizer=CountVectorizer(analyzer="word",tokenizer = None, preprocessor = None, stop_words = None, max_features=5000)
 features=vectorizer.fit_transform(cleanTrain)
 
@@ -55,12 +55,12 @@ features=features.toarray()
 
 
 
-print "Training Random Forest..................................\n"
+print "Training\n"
 forest = RandomForestClassifier(n_estimators = 100)
 result=forest.fit(features,trainData["sentiment"])
 
 cleanTest=[]
-print "Cleaning Test Data..................................\n"
+print "Cleaning Test\n"
 for i in xrange(0,len(testData["review"])):
     cleanTest.append(cleanData(testData["review"][i]))
 testFeatures=vectorizer.transform(cleanTest)
@@ -73,7 +73,7 @@ testFeatures=testFeatures.toarray()
 # np.savetxt("testFeatures.csv", testFeatures, delimiter="\t")
 
 
-print "Predicting Output..................................\n"
+print "Predicting\n"
 result=forest.predict(testFeatures)
 output=pa.DataFrame( data={"id":testData["id"],"sentiment":result})
 output.to_csv("9_1_cost_result.csv",index=False,quoting=3)
